@@ -1,0 +1,58 @@
+<view class="page">
+  <view wx:if="{{role == 21}}" style="text-align: center; font-size: 18px; line-height: 100px;">
+    您好：服务者，请您联系管理维护您的角色
+  </view>
+  <view wx:else>
+    <view class="my-list-item" bindtap="goToWsList" wx:if="{{role == 1 || role == 2 || role == 3 || role == 4 || role == 5 || role == 6 || role == 7 || role == 10 || role == 11 || role == 12 || role == 13 || role == 14 || role == 18 || role == 22}}">
+      <view class="fr" style="margin-top:13px;">
+        <van-icon name="arrow" style="font-size: 18px;" />
+      </view>
+      <view>
+        <text class="iconfont icon-sunhuai myicon2"></text>物损工单
+      </view>
+    </view>
+
+    <view class="my-list-item" bindtap="goToJcList" wx:if="{{role == 1 || role == 2 || role == 3 || role == 4 || role == 5 || role == 6 || role == 7 || role == 8 || role == 10 || role == 11 || role == 12 || role == 13 || role == 14 || role == 15 || role == 22 || role == 23}}">
+      <view class="fr" style="margin-top:13px;">
+        <van-icon name="arrow" style="font-size: 18px;" />
+      </view>
+      <view><text class="iconfont icon-fangwuxinxi myicon2"></text>家财工单</view>
+    </view>
+
+    <view class="my-list-item" bindtap="goToCxList" wx:if="{{role == 1 || role == 2 || role == 3 || role == 4 || role == 5 || role == 6 || role == 7 || role == 13 || role == 14 || role == 16 || role == 17 || role == 22}}">
+      <view class="fr" style="margin-top:13px;">
+        <van-icon name="arrow" style="font-size: 18px;" />
+      </view>
+      <view><text class="iconfont icon-qiche301 myicon2"></text>车险工单</view>
+    </view>
+
+    <view class="my-list-item" bindtap="goToAccidentList" wx:if="{{role == 1 || role == 8 || role == 15 || role == 24}}">
+      <view class="fr" style="margin-top:13px;">
+        <van-icon name="arrow" style="font-size: 18px;" />
+      </view>
+      <view><text class="iconfont icon-accident myicon2"></text>意外险工单</view>
+    </view>
+
+    <view class="my-list-item" bindtap="goToLockList" wx:if="{{role == 1 || role == 2 || role == 3 || role == 4 || role == 5 || role == 6 || role == 7 || role == 19 || role == 22}}">
+      <view class="fr" style="margin-top:13px;">
+        <van-icon name="arrow" style="font-size: 18px;" />
+      </view>
+      <view><text class="iconfont icon-kaisuo myicon2"></text>开锁工单</view>
+    </view>
+
+    <view class="my-list-item" bindtap="goToPipeList" wx:if="{{role == 1 || role == 2 || role == 3 || role == 4 || role == 5 || role == 6 || role == 7 || role == 20 || role == 22}}">
+      <view class="fr" style="margin-top:13px;">
+        <van-icon name="arrow" style="font-size: 18px;" />
+      </view>
+      <view><text class="iconfont icon-channel myicon2"></text>疏通管道工单</view>
+    </view>
+
+    <view class="my-list-item" bindtap="goToFeedbackList">
+      <view class="fr" style="margin-top:13px;">
+        <van-icon name="arrow" style="font-size: 18px;" />
+      </view>
+      <view><text class="iconfont icon-yijianfankui myicon2"></text>意见反馈</view>
+    </view>
+
+  </view>
+</view>

@@ -1,0 +1,1 @@
+exports.domain = 'https://aplusprice.xyz/aprice';

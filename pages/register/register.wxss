@@ -1,0 +1,35 @@
+.authAskBtnWrap{
+  padding: 20px;
+}
+.authAskBtnWrap button{
+  margin-top: 20px;
+}
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+.weui-vcode-btn {
+  display:inline-block;
+  padding:0 .6em 0 .7em;
+  border-left:1px solid #e5e5e5;
+  line-height:2.58823529em;
+  font-size:14px;
+  color:#016eff;
+  white-space:nowrap;
+
+}
+.disabledBtn{
+  color: #aaa;
+}

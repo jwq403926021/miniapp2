@@ -1,0 +1,53 @@
+page{
+  background: #fff!important;
+}
+.banner{
+  height: 240px;
+  overflow: hidden;
+}
+.index-btn-wrap{
+  background: #fff;
+  width: 100%;
+}
+.new-btn{
+  text-align: center;
+  border-right: 1px solid #f7f7f7;
+  border-bottom: 1px solid #f7f7f7;
+  box-sizing: border-box;
+  height: 125px;
+  padding-top: 30px;
+  width: 33.33333%;
+}
+.new-btn .van-icon{
+  color:#016eff
+}
+.welcome{
+  text-align: center;
+  background: #016eff;
+  border-bottom: 1px solid #f7f7f7;
+  box-sizing: border-box;
+  height: 125px;
+  line-height: 125px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+}
+.order-box{
+  text-align: center;
+  background: #016eff;
+  border-bottom: 1px solid #f7f7f7;
+  box-sizing: border-box;
+  height: 125px;
+  width: 33.33333%;
+  float: left;
+  color: #fff;
+}
+.order-box .num{
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  padding-top: 20px;
+}
+.order-box .num-description{
+  text-align: center;
+}
