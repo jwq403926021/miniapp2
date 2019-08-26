@@ -1,5 +1,8 @@
 {
   "usingComponents": {
-    "van-icon": "../../asset/vant/icon/index"
+    "van-icon": "../../asset/vant/icon/index",
+    "van-radio": "../../asset/vant/radio/index",
+    "van-radio-group": "../../asset/vant/radio-group/index",
+    "van-steps": "../../asset/vant/steps/index"
   }
 }

@@ -3,7 +3,130 @@
     <view>汇物保 欢迎您</view>
     <view>智能推荐符合您的保险产品</view>
   </view>
-  <view>
 
-  </view>
+  <van-steps
+          steps="{{ steps }}"
+          active="{{ step }}"
+          direction="horizontal"
+          active-color="#016eff"
+  />
+
+  <block wx:if="{{step == 0}}">
+    <view class="page__bd" wx:if="{{role == 23}}">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__hd weui-cell__hd_in-select-after">
+            <view class="weui-label">开发商</view>
+          </view>
+          <view class="weui-cell__bd">
+            <van-radio-group value="{{ propertyCompany.developCompany }}" custom-class="weui-input vertical"
+                             id="propertyCompany.developCompany"
+                             bind:change="onChange">
+              <van-radio custom-class="fl mr5" name="1">著名</van-radio>
+              <van-radio custom-class="fl mr5" name="2">区域</van-radio>
+              <van-radio custom-class="fl mr5" name="3">一般</van-radio>
+            </van-radio-group>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__hd weui-cell__hd_in-select-after">
+            <view class="weui-label">项目时间(年)</view>
+          </view>
+          <view class="weui-cell__bd">
+            <van-radio-group value="{{ propertyCompany.projectTime }}" custom-class="weui-input vertical"
+                             id="propertyCompany.projectTime"
+                             bind:change="onChange">
+              <van-radio custom-class="fl mr5" name="1"> >10 </van-radio>
+              <van-radio custom-class="fl mr5" name="2"> 5-10</van-radio>
+              <van-radio custom-class="fl mr5" name="3"> {{'<'}}5 </van-radio>
+            </van-radio-group>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__hd weui-cell__hd_in-select-after">
+            <view class="weui-label">品质</view>
+          </view>
+          <view class="weui-cell__bd">
+            <van-radio-group value="{{ propertyCompany.quality }}" custom-class="weui-input vertical"
+                             id="propertyCompany.quality"
+                             bind:change="onChange">
+              <van-radio custom-class="fl mr5" name="1">高级</van-radio>
+              <van-radio custom-class="fl mr5" name="2">标准</van-radio>
+              <van-radio custom-class="fl mr5" name="3">普通</van-radio>
+            </van-radio-group>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{role == 24}}">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__hd weui-cell__hd_in-select-after">
+            <view class="weui-label">房龄(年)</view>
+          </view>
+          <view class="weui-cell__bd">
+            <van-radio-group value="{{ individual.houseTime }}" custom-class="weui-input vertical"
+                             id="individual.houseTime"
+                             bind:change="onChange">
+              <van-radio custom-class="fl mr5" name="1"> >10 </van-radio>
+              <van-radio custom-class="fl mr5" name="2"> 5-10</van-radio>
+              <van-radio custom-class="fl mr5" name="3"> {{'<'}}5 </van-radio>
+            </van-radio-group>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__hd weui-cell__hd_in-select-after">
+            <view class="weui-label">装修风格</view>
+          </view>
+          <view class="weui-cell__bd">
+            <van-radio-group value="{{ individual.style }}" custom-class="weui-input vertical"
+                             id="individual.style"
+                             bind:change="onChange">
+              <van-radio custom-class="fl mr5" name="1">高级</van-radio>
+              <van-radio custom-class="fl mr5" name="2">标准</van-radio>
+              <van-radio custom-class="fl mr5" name="3">普通</van-radio>
+            </van-radio-group>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__hd weui-cell__hd_in-select-after">
+            <view class="weui-label">面积</view>
+          </view>
+          <view class="weui-cell__bd">
+            <van-radio-group value="{{ individual.measure }}" custom-class="weui-input vertical"
+                             id="individual.measure"
+                             bind:change="onChange">
+              <van-radio custom-class="fl mr5" name="1"> >100 </van-radio>
+              <van-radio custom-class="fl mr5" name="2"> 100-80 </van-radio>
+              <van-radio custom-class="fl mr5" name="3"> {{'<'}}80 </van-radio>
+            </van-radio-group>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="button-sp-area">
+      <button type="primary" bindtap="submit">下一步</button>
+    </view>
+  </block>
+
+  <block wx:if="{{step == 1}}">
+    <view>
+      222
+    </view>
+    <view class="button-sp-area two-btn-wrap">
+      <button bindtap="back0">返回</button>
+      <button type="primary" bindtap="commitOrder">下一步</button>
+    </view>
+  </block>
+
+  <block wx:if="{{step == 3}}">
+    <view>
+      333
+    </view>
+    <view class="button-sp-area two-btn-wrap">
+      <button bindtap="back1">返回</button>
+      <button type="primary" bindtap="commitOrder">提交</button>
+    </view>
+  </block>
 </view>
