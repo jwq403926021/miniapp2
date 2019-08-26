@@ -12,13 +12,7 @@ App({
     if ([
       "pages/index/index",
       "pages/register/register",
-      "pages/my-list-home/my-list-home",
-      "pages/my-list-ws/my-list-ws",
-      "pages/my-list-jc/my-list-jc",
-      "pages/my-list-cx/my-list-cx",
-      "pages/my-list-lock/my-list-lock",
-      "pages/my-list-feedback/my-list-feedback",
-      "pages/my-list-pipe/my-list-pipe"
+      "pages/my-list/my-list"
     ].indexOf(obj.path) != -1) {
       if (!_this.globalData.token) {
         _this.login()

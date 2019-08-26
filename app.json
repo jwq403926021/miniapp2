@@ -2,7 +2,7 @@
   "pages":[
     "pages/index/index",
     "pages/register/register",
-    "pages/my-list-home/my-list-home"
+    "pages/my-list/my-list"
   ],
   "window":{
     "backgroundTextStyle":"dark",
@@ -23,7 +23,7 @@
       {
         "iconPath": "asset/image/list.png",
         "selectedIconPath": "asset/image/list_active.png",
-        "pagePath": "pages/my-list-home/my-list-home",
+        "pagePath": "pages/my-list/my-list",
         "text": "列表"
       },
       {
