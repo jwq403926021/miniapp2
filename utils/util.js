@@ -105,9 +105,37 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+const checkPhone = (number) => {
+  var phone = number
+  if(!(/^1[3456789]\d{9}$/.test(phone))){
+    wx.showToast({
+      mask: true,
+      title: '请输入正确的手机号',
+      icon: 'none',
+      duration: 2000
+    })
+    return false
+  }
+  return true
+}
+const checkCardNum = (number) => {
+  if(!(/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/.test(number))){
+    wx.showToast({
+      mask: true,
+      title: '请输入正确的身份证号',
+      icon: 'none',
+      duration: 2000
+    })
+    return false
+  }
+  return true
+}
+
 module.exports = {
   formatTime: formatTime,
   request: request,
   isLogin: isLogin,
-  uploadFile: uploadFile
+  uploadFile: uploadFile,
+  checkPhone: checkPhone,
+  checkCardNum: checkCardNum
 }

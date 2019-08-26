@@ -8,22 +8,6 @@ Page({
     region: '',
     regionLabel: '',
 
-    companyCategory: '0',
-    companyCategoryLabel: '保险公司',
-    // companyCategoryList: [],
-
-    companySubCategory: '',
-    companySubCategoryLabel: '',
-    companySubCategoryList: [],
-
-    companyName: '',
-    companyNameLabel: '',
-    companyNameList: [],
-
-    companyLevel: '',
-    companyLevelLabel: '',
-    companyLevelList: ['省级', '市级', '区级'],
-
     showAskUserInfoBtn: false,
     hasUserInfoAuth: false,
     hasBindPhone: false,
@@ -33,10 +17,7 @@ Page({
     registeInfo: {
       "avatarUrl": "",
       "cityCode": "",
-      "companyNameCode": "",
       "companyName": "",
-      "companyType": "2", // 默认 查勘员 的公司类别 为 2 保险公司
-      'insurance': '', // 保险 子类别
       "gender": "",
       "inviteCode": "",
       "mobile": "",
@@ -44,11 +25,9 @@ Page({
       "name": "",
       "nickName": "",
       "provinceCode": "",
-      "role": '1',
+      "role": '23',
       "townCode": "",
-      // "city": "",
-      // "province": "",
-      // "town": ""
+      "cardNumber": ""
     },
     isOurUser: false,
     isModifyPhone: true
@@ -99,11 +78,10 @@ Page({
                 _this.setData({
                   region: currentData ? currentData.townCode : '',
                   "registeInfo.cityCode": currentData ? currentData.cityCode : '',
-                  "registeInfo.companyNameCode": currentData ? currentData.companyNameCode : '',
-                  "registeInfo.companyName": currentData ? (currentData.companyName || currentData.sysCompanyEntity.companyName) : '',
-                  "registeInfo.companyType": currentData ? currentData.companyType : '',
+                  "registeInfo.companyName": currentData ? currentData.companyName : '',
                   "registeInfo.inviteCode": currentData ? currentData.inviteCode : '',
                   "registeInfo.mobile": currentData ? currentData.mobile : '',
+                  "registeInfo.cardNumber": currentData ? currentData.cardNumber : '',
                   "registeInfo.name": currentData ? currentData.name : '',
                   "registeInfo.provinceCode": currentData ? currentData.provinceCode : '',
                   "registeInfo.role": currentData ? (currentData.role + '') : '',
@@ -121,7 +99,6 @@ Page({
       }
     })
     this.initArea()
-    this.initCompanySubCategory()
   },
   getRegionLabel () {
     let arr = []
@@ -146,85 +123,6 @@ Page({
       _this.getRegionLabel()
     })
   },
-  initCompanySubCategory () {
-    let _this = this
-    util.request({
-      path: '/sys/industryInsurance/all',
-      method: 'GET'
-    }, function (err, res) {
-      if (res.code == 0) {
-        _this.companySubSourceData = res.data
-        _this.setData({
-          'companySubCategoryList': _this.companySubSourceData.map(item => { return item.name })
-        })
-      }
-    })
-  },
-  companySubCategoryChange (data) {
-    this.setData({
-      'registeInfo.insurance': this.companySubSourceData[data.detail.value].id,
-      companySubCategoryLabel: this.companySubSourceData[data.detail.value].name,
-      companySubCategory: data.detail.value,
-      'registeInfo.companyNameCode': '',
-      companyNameLabel: '',
-      companyName: ''
-    })
-    this.initCompanyName()
-  },
-  checkCompanyNameList () {
-    if (this.data.companyNameList.length == 0) {
-      wx.showToast({
-        mask: true,
-        title: '没有可用单位名称',
-        icon: 'none',
-        duration: 2000
-      })
-    }
-  },
-  initCompanyName () {
-    let _this = this
-    let data = {
-      industryCode: this.data.registeInfo.companyType,
-      cityCode:this.data.registeInfo.cityCode,
-      provinceCode:this.data.registeInfo.provinceCode,
-      areaCode:this.data.registeInfo.townCode,
-      organization:this.data.companyLevel
-    }
-    if (this.data.registeInfo.companyType == 2) {
-      data.insurance = this.data.registeInfo.insurance
-    }
-    util.request({
-      path: '/sys/company/list',
-      method: 'GET',
-      data: data
-    }, function (err, res) {
-      if (res.code == 0) {
-        _this.companyNameSourceData = res.data
-        _this.setData({
-          'companyNameList': _this.companyNameSourceData.map(item => { return item.companyName })
-        })
-      }
-    })
-  },
-  companyNameChange (data) {
-    if (this.companyNameSourceData.length > 0) {
-      this.setData({
-        'registeInfo.companyNameCode': this.companyNameSourceData[data.detail.value].id,
-        companyNameLabel: this.companyNameSourceData[data.detail.value].companyName,
-        companyName: data.detail.value
-      })
-    }
-  },
-  companyLevelChange (data) {
-    this.setData({
-      companyLevel: data.detail.value,
-      companyLevelLabel: this.data.companyLevelList[data.detail.value],
-      'registeInfo.companyNameCode': '',
-      companyNameLabel: '',
-      companyName: ''
-    })
-    this.initCompanyName()
-  },
   bindGetUserInfo(data) {
     if (data.detail.errMsg == "getUserInfo:fail auth deny") {
       return false
@@ -245,11 +143,10 @@ Page({
       this.setData({
         region: currentData ? currentData.townCode : '',
         "registeInfo.cityCode": currentData ? currentData.cityCode : '',
-        "registeInfo.companyNameCode": currentData ? currentData.companyNameCode : '',
-        "registeInfo.companyName": currentData ? (currentData.companyName || currentData.sysCompanyEntity.companyName) : '',
-        "registeInfo.companyType": currentData ? currentData.companyType : '',
+        "registeInfo.companyName": currentData ? currentData.companyName : '',
         "registeInfo.inviteCode": currentData ? currentData.inviteCode : '',
         "registeInfo.mobile": currentData ? currentData.mobile : '',
+        "registeInfo.cardNumber": currentData ? currentData.cardNumber : '',
         "registeInfo.name": currentData ? currentData.name : '',
         "registeInfo.provinceCode": currentData ? currentData.provinceCode : '',
         "registeInfo.role": currentData ? (currentData.role + '') : '',
@@ -261,10 +158,12 @@ Page({
   },
   submitRegiste() {
     let _this = this
-    if (!this.checkPhone()) {
+    if (!util.checkPhone(this.data.registeInfo.mobile)) {
       return false
     }
-
+    if (!util.checkCardNum(this.data.registeInfo.cardNumber) && this.data.registeInfo.role == '24') {
+      return false
+    }
     if (this.data.isOurUser && this.data.registeInfo.mobile != app.globalData.currentRegisterInfo.mobile && this.data.registeInfo.mobileCode == '') {
       wx.showToast({
         mask: true,
@@ -292,23 +191,7 @@ Page({
       })
       return false
     }
-    if (this.data.registeInfo.role == 1) {
-      if (this.data.registeInfo.companyNameCode == null || this.data.registeInfo.companyNameCode == '') {
-        wx.showToast({
-          mask: true,
-          title: '单位名称不能为空',
-          icon: 'none',
-          duration: 2000
-        })
-        return false
-      }
-    }
     let params = Object.assign({}, this.data.registeInfo)
-    if (this.data.registeInfo.role != 1) {
-      delete params['companyNameCode']
-      delete params['companyType']
-      delete params['insurance']
-    }
     wx.showLoading({
       mask: true,
       title: '提交中'
@@ -326,7 +209,7 @@ Page({
           "registeInfo.mobileCode": '',
           "registeInfo.inviteCode": res.userInfo.inviteCode,
           "registeInfo.roleName": res.userInfo.roleName,
-          "registeInfo.companyName": res.userInfo.sysCompanyEntity ? res.userInfo.sysCompanyEntity.companyName : ''
+          "registeInfo.companyName": res.userInfo.companyName || ''
         })
           wx.setStorageSync('status', 1)
           wx.showToast({
@@ -370,12 +253,8 @@ Page({
       'registeInfo.provinceCode': data.detail.values[0].code,
       'registeInfo.town': data.detail.values[2].name,
       'registeInfo.city': data.detail.values[1].name,
-      'registeInfo.province': data.detail.values[0].name,
-      'registeInfo.companyNameCode': '',
-      companyNameLabel: '',
-      companyName: ''
+      'registeInfo.province': data.detail.values[0].name
     })
-    this.initCompanyName()
   },
   onCancel() {
     this.setData({
@@ -384,7 +263,7 @@ Page({
   },
   requestVerifyCode () {
     let _this = this
-    if (!this.checkPhone() || this.data.isDisableVerfiyBtn) {
+    if (!util.checkPhone(this.data.registeInfo.mobile) || this.data.isDisableVerfiyBtn) {
       return false
     }
 
@@ -419,19 +298,6 @@ Page({
       }
     })
   },
-  checkPhone (){
-    var phone = this.data.registeInfo.mobile
-    if(!(/^1[3456789]\d{9}$/.test(phone))){
-      wx.showToast({
-        mask: true,
-        title: '请输入正确的手机号',
-        icon: 'none',
-        duration: 2000
-      })
-      return false
-    }
-    return true
-  },
   inputgetName(e) {
     let name = e.currentTarget.dataset.name;
     let nameMap = {}
@@ -456,7 +322,7 @@ Page({
   },
   bindPhoneNum () {
     let _this = this
-    if (!this.checkPhone()) {
+    if (!util.checkPhone(this.data.registeInfo.mobile)) {
       return false
     }
     if (this.data.registeInfo.mobileCode == '' || this.data.registeInfo.mobileCode == null){
@@ -485,12 +351,10 @@ Page({
         _this.setData({
           isModifyPhone: false,
           'hasBindPhone': true,
-          "registeInfo.companyNameCode": res.userInfo.companyNameCode,
-          "registeInfo.companyName": res.userInfo.sysCompanyEntity ? res.userInfo.sysCompanyEntity.companyName : '',
-          "registeInfo.companyType": res.userInfo.companyType || '2', // '新用户默认 单位类别 2保险公司'
+          "registeInfo.companyName": res.userInfo.companyName || '',
           "registeInfo.inviteCode": res.userInfo.inviteCode,
           "registeInfo.name": res.userInfo.name,
-          "registeInfo.role": res.userInfo.role || '1', // '新用户默认 1查勘员'
+          "registeInfo.role": res.userInfo.role || '23', // '新用户默认 1查勘员'
           "registeInfo.roleName": res.userInfo.roleName,
           'registeInfo.townCode': res.userInfo.townCode,
           'registeInfo.cityCode': res.userInfo.cityCode,
