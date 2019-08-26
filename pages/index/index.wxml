@@ -1,7 +1,7 @@
 <view wx:if="{{isLogin}}" class="page">
   <view class="welcome">
     <view>汇物保 欢迎您</view>
-    <view>智能推荐符合您的保险产品</view>
+    <text style="font-size: 16px">智能推荐符合您的保险产品</text>
   </view>
 
   <van-steps
@@ -111,21 +111,93 @@
   </block>
 
   <block wx:if="{{step == 1}}">
-    <view>
-      222
+    <view wx:for="{{dataList}}" wx:for-item="company" wx:key="*this">
+      <view style="text-align: center; font-size: 18px; line-height: 24px;">{{company.companyName}}</view>
+      <view class="weui-panel weui-panel_access mt0" wx:for="{{company.product}}" wx:key="*this" data-productid="{{item.id}}" data-companyid="{{item.companyId}}" bindtap="goToCommitOrder">
+        <view class="weui-panel__bd">
+          <view class="weui-media-box weui-media-box_text">
+            <view class="weui-media-box__title weui-media-box__title_in-text">
+              <text style="float: right" class="{{item.flag ? 'highlight' : ''}}">{{item.flag ? '[推荐]' : ''}}</text>
+              {{item.productName}}
+            </view>
+            <view class="weui-media-box__desc">
+              <view>介绍：{{item.detail || '-'}}</view>
+              <view>价格：{{item.price}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
     </view>
-    <view class="button-sp-area two-btn-wrap">
-      <button bindtap="back0">返回</button>
-      <button type="primary" bindtap="commitOrder">下一步</button>
+
+    <view class="button-sp-area">
+      <button bindtap="submit">上一步</button>
     </view>
   </block>
 
-  <block wx:if="{{step == 3}}">
+  <block wx:if="{{step == 2}}">
     <view>
-      333
+      <view class="weui-cells__title">确认信息</view>
+      <view class="weui-cells weui-cells_after-title">
+
+        <view class="weui-cell weui-cell_input weui-cell_vcode">
+          <view class="weui-cell__hd">
+            <view class="weui-label">被保险人</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" bindinput="inputgetName" data-name='name'
+                   value="{{name}}" placeholder="请输入被保险人"/>
+          </view>
+        </view>
+
+        <view class="weui-cell weui-cell_input weui-cell_vcode">
+          <view class="weui-cell__hd">
+            <view class="weui-label">身份证</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" bindinput="inputgetName" data-name='cardNumber'
+                   value="{{cardNumber}}" placeholder="请输入身份证"/>
+          </view>
+        </view>
+
+        <view class="weui-cell weui-cell_input weui-cell_vcode">
+          <view class="weui-cell__hd">
+            <view class="weui-label">手机</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" bindinput="inputgetName" data-name='mobile'
+                   value="{{mobile}}" placeholder="请输入手机"/>
+          </view>
+        </view>
+
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__hd weui-cell__hd_in-select-after">
+            <view class="weui-label">保险公司</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="bindInsurerChange" value="{{companyValue}}" range="{{companyList}}">
+              <view class="picker weui-select weui-select_in-select-after">
+                {{companyValueList[companyValue] || '选择保险公司'}}
+              </view>
+            </picker>
+          </view>
+        </view>
+
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__hd weui-cell__hd_in-select-after">
+            <view class="weui-label">投保产品</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="bindInsurerChange" value="{{productValue}}" range="{{productList}}">
+              <view class="picker weui-select weui-select_in-select-after">
+                {{productValueList[productValue] || '选择投保产品'}}
+              </view>
+            </picker>
+          </view>
+        </view>
+      </view>
     </view>
     <view class="button-sp-area two-btn-wrap">
-      <button bindtap="back1">返回</button>
+      <button bindtap="back1">上一步</button>
       <button type="primary" bindtap="commitOrder">提交</button>
     </view>
   </block>
