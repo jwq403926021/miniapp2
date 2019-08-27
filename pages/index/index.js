@@ -51,7 +51,7 @@ Page({
       [event.currentTarget.id]: event.detail
     })
   },
-  submit () {
+  gotoStep1 () {
     let that = this
     let type = 1
     let propertyCompany = this.data.propertyCompany

@@ -106,7 +106,7 @@
     </view>
 
     <view class="button-sp-area">
-      <button type="primary" bindtap="submit">下一步</button>
+      <button type="primary" bindtap="gotoStep1">下一步</button>
     </view>
   </block>
 
@@ -130,7 +130,7 @@
     </view>
 
     <view class="button-sp-area">
-      <button bindtap="submit">上一步</button>
+      <button bindtap="back0">上一步</button>
     </view>
   </block>
 
