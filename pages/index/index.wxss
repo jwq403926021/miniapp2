@@ -53,3 +53,6 @@ page{
 .highlight{
   color: #e64340;
 }
+.product-wrapper{
+  margin-bottom: 20px;
+}
