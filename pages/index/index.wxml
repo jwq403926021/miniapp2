@@ -113,7 +113,7 @@
   <block wx:if="{{step == 1}}">
     <view wx:for="{{dataList}}" wx:for-item="company" wx:key="*this">
       <view style="text-align: center; font-size: 18px; line-height: 24px;">{{company.companyName}}</view>
-      <view class="weui-panel weui-panel_access mt0" wx:for="{{company.product}}" wx:key="*this" data-productid="{{item.id}}" data-companyid="{{item.companyId}}" bindtap="goToCommitOrder">
+      <view class="weui-panel weui-panel_access mt0" wx:for="{{company.product}}" wx:key="{{item.id}}" data-productid="{{item.id}}" data-companyid="{{item.companyId}}" bindtap="goToCommitOrder">
         <view class="weui-panel__bd">
           <view class="weui-media-box weui-media-box_text">
             <view class="weui-media-box__title weui-media-box__title_in-text">

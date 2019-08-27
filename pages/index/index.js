@@ -41,6 +41,9 @@ Page({
       })
       wx.hideTabBar()
     }
+    this.setData({
+      step: '0'
+    })
     this.onLoad()
   },
   onChange (event) {
@@ -93,7 +96,6 @@ Page({
             result[item.companyId].product = [item]
           }
         })
-        console.log(result)
         that.setData({
           dataList: result,
           step: '1'
@@ -139,7 +141,6 @@ Page({
     }, function (err, res) {
       let productValue = res.DATA.DATA.findIndex((item) => {return item.id === event.currentTarget.dataset.productid})
       let productList = res.DATA.DATA.map(item => { return item.productName })
-      console.log(productValue, productList)
       that.setData({
         productSourceData: res.DATA.DATA,
         productValue: productValue,
@@ -153,7 +154,6 @@ Page({
   },
   companyChange (event) {
     let that = this
-    console.log(this.data.companySourceData[event.detail.value], '##')
     util.request({
       path: `/app/businessdata/getProductByCompanyId/${this.data.companySourceData[event.detail.value].id}`,
       method: 'GET'
