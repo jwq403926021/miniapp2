@@ -56,22 +56,29 @@ Page({
       phone: data.detail
     })
   },
+  getDataClearFilter () {
+    this.setData({
+      insuredName: '',
+      cardNumber: '',
+      phone: ''
+    })
+    this.getInitData()
+  },
   getInitData () {
     let _this = this
     let filter = {
-      name: this.data.insuredName,
-      cardNumber: this.data.cardNumber,
-      mobile: this.data.phone,
       page: 0,
       size: 1000
     }
-    if (this.data.searchKeyword) {
-      filter.customName = this.data.searchKeyword
+    if (this.data.insuredName) {
+      filter.name = this.data.insuredName
     }
-    if (this.data.searchStatus != -1) {
-      filter.status = this.data.searchStatus
+    if (this.data.cardNumber) {
+      filter.cardNumber = this.data.cardNumber
     }
-    console.log(filter, this.data.searchKeyword, this.data.searchStatus)
+    if (this.data.phone) {
+      filter.mobile = this.data.phone
+    }
     wx.showLoading({
       mask: true,
       title: '加载中'
@@ -84,7 +91,7 @@ Page({
       wx.hideLoading()
       wx.stopPullDownRefresh()
       _this.setData({
-        dataList: res.data
+        dataList: res.data || []
       })
     })
   }
