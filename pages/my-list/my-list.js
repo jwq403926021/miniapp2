@@ -27,9 +27,9 @@ Page({
     })
   },
   goToHandleTask (event) {
-    wx.navigateTo({
-      url: '../pipe-form/pipe-form?id=' + event.currentTarget.dataset.id + '&orderId=' + event.currentTarget.dataset.orderid
-    })
+    // wx.navigateTo({
+    //   url: '../pipe-form/pipe-form?id=' + event.currentTarget.dataset.id + '&orderId=' + event.currentTarget.dataset.orderid
+    // })
   },
   onCancel () {
     this.setData({
@@ -67,7 +67,7 @@ Page({
   getInitData () {
     let _this = this
     let filter = {
-      page: 0,
+      page: 1,
       size: 1000
     }
     if (this.data.insuredName) {
@@ -91,7 +91,7 @@ Page({
       wx.hideLoading()
       wx.stopPullDownRefresh()
       _this.setData({
-        dataList: res.data || []
+        dataList: res.page.records || []
       })
     })
   }
