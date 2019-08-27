@@ -174,9 +174,9 @@
             <view class="weui-label">保险公司</view>
           </view>
           <view class="weui-cell__bd">
-            <picker bindchange="bindInsurerChange" value="{{companyValue}}" range="{{companyList}}">
+            <picker bindchange="companyChange" value="{{companyValue}}" range="{{companyList}}">
               <view class="picker weui-select weui-select_in-select-after">
-                {{companyValueList[companyValue] || '选择保险公司'}}
+                {{companyList[companyValue] || '选择保险公司'}}
               </view>
             </picker>
           </view>
@@ -187,9 +187,9 @@
             <view class="weui-label">投保产品</view>
           </view>
           <view class="weui-cell__bd">
-            <picker bindchange="bindInsurerChange" value="{{productValue}}" range="{{productList}}">
+            <picker bindchange="productChange" value="{{productValue}}" range="{{productList}}">
               <view class="picker weui-select weui-select_in-select-after">
-                {{productValueList[productValue] || '选择投保产品'}}
+                {{productList[productValue] || '选择投保产品'}}
               </view>
             </picker>
           </view>
