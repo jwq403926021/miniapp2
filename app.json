@@ -2,7 +2,8 @@
   "pages":[
     "pages/index/index",
     "pages/register/register",
-    "pages/my-list/my-list"
+    "pages/my-list/my-list",
+    "pages/order-detail/order-detail"
   ],
   "window":{
     "backgroundTextStyle":"dark",
