@@ -89,7 +89,7 @@ Page({
   inputgetName(e) {
     let name = e.currentTarget.dataset.name;
     let nameMap = {}
-    if (name.indexOf('.')) {
+    if (name.indexOf('.') != -1) {
       let nameList = name.split('.')
       if (this.data[nameList[0]]) {
         nameMap[nameList[0]] = this.data[nameList[0]]
@@ -111,7 +111,7 @@ Page({
   delete () {
     let _this = this
     util.request({
-      path: `/app/businessdata?id=${this.data.id}`,
+      path: `/app/businessdata/delete?id=${this.data.id}`,
       method: 'DELETE'
     }, function (err, res) {
       wx.showToast({
