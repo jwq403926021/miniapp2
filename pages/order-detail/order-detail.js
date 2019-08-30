@@ -5,22 +5,19 @@ const app = getApp()
 
 Page({
   data: {
-    show: false,
-    taskData: {
-      "provinceCode": "",
-      "areaCode": "",
-      "cityCode": "",
-      "customMobile": '',
-      "customName": "",
-      "information": "",
-      "offer": "",
-      "live": "",
-      "insurerUserMobile": "",
-      "dredgeUserMobile": ""
-    },
+    role: null,
+    name: '',
+    cardNumber: '',
+    mobile: '',
+    operatorId: '',
+    companySourceData: [],
+    companyValue: '',
+    companyList: [],
+    productSourceData: [],
+    productValue: '',
+    productList: ''
   },
   onLoad: function (routeParams ) {
-    this.initArea()
     if (routeParams && routeParams.id) {
       this.setData({
         id: routeParams.id,
@@ -32,87 +29,61 @@ Page({
   initDataById (id) {
     let _this = this
     util.request({
-      path: '/app/dredge/info',
-      method: 'GET',
-      data: {
-        id: id
-      }
-    }, function (err, res) {
-      let data = res.data
-      _this.setData({
-        'informationImageFiles': informationImageFiles,
-        'liveImageFiles': liveImageFiles,
-        'status': data.status,
-        'taskData.areaCode': data.areaCode,
-        'taskData.cityCode': data.cityCode,
-        'taskData.provinceCode': data.provinceCode,
-        "taskData.customMobile": data.customMobile,
-        "taskData.customName": data.customName,
-        "taskData.information": data.information,
-        "taskData.offer": data.offer,
-        "taskData.live": data.live,
-        "taskData.insurerUserMobile": data.insurerUserMobile,
-        "taskData.dredgeUserMobile": data.dredgeUserMobile
-      })
-      _this.getRegionLabel()
-    })
-  },
-  initArea () {
-    let _this = this
-    _this.setData({
-      region: app.globalData.currentRegisterInfo.townCode,
-      'taskData.area': app.globalData.currentRegisterInfo.townCode,
-      'taskData.areaCode': app.globalData.currentRegisterInfo.townCode,
-      'taskData.cityCode': app.globalData.currentRegisterInfo.cityCode,
-      'taskData.provinceCode': app.globalData.currentRegisterInfo.provinceCode
-    })
-    util.request({
-      path: '/sys/area/list',
+      path: `/app/businessdata/info/${id}`,
       method: 'GET'
     }, function (err, res) {
+      let data = res.businessData
       _this.setData({
-        areaList: res.DATA.DATA
+        'name': data.name,
+        'cardNumber': data.cardNumber,
+        'mobile': data.mobile,
+        "productId": data.productId,
+        "companyId": data.companyId,
+        "operatorId": data.operatorId,
       })
-      _this.getRegionLabel()
+      _this.initCompanyProduct(data.companyId, data.productId)
     })
   },
-  getRegionLabel () {
-    let arr = []
-    if (this.data.region && this.data.areaList.hasOwnProperty('province_list')) {
-      let provinceCode = this.data.region.slice(0,2) + '0000'
-      let cityCode = this.data.region.slice(0,4) + '00'
-      let townCode = this.data.region
-      arr.push(this.data.areaList['province_list'][provinceCode])
-      arr.push(this.data.areaList['city_list'][cityCode])
-      arr.push(this.data.areaList['county_list'][townCode])
-    }
-    this.setData({
-      regionLabel: arr.length ? arr.join(',') : ''
+  initCompanyProduct (companyId, productId) {
+    let that = this
+    util.request({
+      path: '/app/businessdata/company',
+      method: 'GET'
+    }, function (err, res) {
+      let companyValue = res.DATA.findIndex((item) => {return item.id === companyId})
+      let companyList = res.DATA.map(item => { return item.companyName })
+      that.setData({
+        companySourceData: res.DATA,
+        companyValue: companyValue,
+        companyList: companyList
+      })
+    })
+    util.request({
+      path: `/app/businessdata/getProductByCompanyId/${companyId}`,
+      method: 'GET'
+    }, function (err, res) {
+      let productValue = res.DATA.DATA.findIndex((item) => {return item.id === productId})
+      let productList = res.DATA.DATA.map(item => { return item.productName })
+      that.setData({
+        productSourceData: res.DATA.DATA,
+        productValue: productValue,
+        productList: productList
+      })
     })
   },
-  openLocation() {
-    this.setData({
-      show: !this.show
-    })
-  },
-  onConfirm(data) {
-    let strArr = []
-    data.detail.values.forEach(item => {
-      strArr.push(item.name)
-    })
-
-    this.setData({
-      show: false,
-      region: data.detail.values[2].code,
-      regionLabel: strArr.join(','),
-      'taskData.areaCode': data.detail.values[2].code,
-      'taskData.cityCode': data.detail.values[1].code,
-      'taskData.provinceCode': data.detail.values[0].code,
-    })
-  },
-  onCancel() {
-    this.setData({
-      show: false
+  companyChange (event) {
+    let that = this
+    util.request({
+      path: `/app/businessdata/getProductByCompanyId/${this.data.companySourceData[event.detail.value].id}`,
+      method: 'GET'
+    }, function (err, res) {
+      let productList = res.DATA.DATA.map(item => { return item.productName })
+      that.setData({
+        companyValue: event.detail.value,
+        productSourceData: res.DATA.DATA,
+        productValue: 0,
+        productList: productList
+      })
     })
   },
   inputgetName(e) {
@@ -137,93 +108,74 @@ Page({
       phoneNumber: phone
     })
   },
-  commitSubmit (e) {
-    let data = this.data.taskData
+  delete () {
     let _this = this
-    let isSave = e.currentTarget.dataset.save
-    let taskData = {
-      "customMobile": data.customMobile,
-      "customName": data.customName,
-      "information": data.information,
-      "areaCode": data.areaCode,
-      "cityCode": data.cityCode,
-      "provinceCode": data.provinceCode
-    }
-    if (this.data.id) {
-      taskData.id = this.data.id
-      taskData.orderId = this.data.orderId
-    }
-    if (this.data.status == '12'){ // 暂存 二次点击
-      taskData.status = '12'
-    }
-    let informationImageFiles = []
-    _this.data.informationImageFiles.map(item => {
-      if (item.path.indexOf('https://') == -1){
-        informationImageFiles.push({path: item.path, type: 1})
-      }
+    util.request({
+      path: `/app/businessdata?id=${this.data.id}`,
+      method: 'DELETE'
+    }, function (err, res) {
+      wx.showToast({
+        mask: true,
+        title: '删除成功',
+        icon: 'success',
+        duration: 1000,
+        success () {
+          setTimeout(() => {
+            _this.goToList()
+          }, 1000)
+        }
+      })
     })
-
-    if (taskData.customName == '') {
+  },
+  save (e) {
+    let _this = this
+    if (!util.checkCardNum(this.data.cardNumber)) {
       wx.showToast({
         mask: true,
-        title: '请填写客户姓名',
         icon: 'none',
-        duration: 2000
+        title: '请输入正确的身份证号',
+        duration: 1000
       })
-      return
+      return false
     }
-
-    if (taskData.customMobile == '' && _this.data.informationImageFiles.length == 0) {
+    if (!util.checkPhone(this.data.mobile)) {
       wx.showToast({
         mask: true,
-        title: '客户手机和报案图片必须填写一项',
         icon: 'none',
-        duration: 2000
+        title: '请输入正确的手机号',
+        duration: 1000
       })
-      return
+      return false
     }
-
-    if (taskData.customMobile) {
-      let isVaidcustomerPhone = this.checkPhone(taskData.customMobile, '请输入正确的客户手机号')
-      if (!isVaidcustomerPhone) {
-        return
-      }
-    }
-
     wx.showLoading({
       mask: true,
       title: '提交中'
     })
     util.request({
-      path: isSave ? '/app/dredge/save' : '/app/dredge/commit',
+      path: '/app/businessdata/update',
       method: 'POST',
-      data: taskData
+      data: {
+        id: this.data.id,
+        name: this.data.name,
+        cardNumber: this.data.cardNumber,
+        mobile: this.data.mobile,
+        productId: this.data.productSourceData[this.data.productValue].id,
+        companyId: this.data.companySourceData[this.data.companyValue].id,
+        operatorId: this.data.operatorId
+      }
     }, function (err, res) {
-      console.log('工单新建：', res)
       if (res.code == 0) {
-        let imgPaths = [...informationImageFiles]
-        console.log('Upload Files:', imgPaths)
-        _this.setData({
-          'orderId': res.orderId
+        wx.showToast({
+          mask: true,
+          title: '修改成功',
+          icon: 'success',
+          duration: 1000,
+          success () {
+            setTimeout(() => {
+              _this.goToList()
+            }, 1000)
+          }
         })
-        let count = 0
-        let successUp = 0
-        let failUp = 0
-        if (imgPaths.length) {
-          _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
-        } else {
-          wx.showToast({
-            mask: true,
-            title: '创建成功',
-            icon: 'success',
-            duration: 1000,
-            success () {
-              setTimeout(() => {
-                _this.goToList()
-              }, 1000)
-            }
-          })
-        }
       } else {
         wx.showToast({
           mask: true,
@@ -237,15 +189,15 @@ Page({
   goToList () {
     let pages = getCurrentPages()
     let length = pages.filter((item) => {
-      return item.route == 'pages/my-list-pipe/my-list-pipe'
+      return item.route == 'pages/my-list/my-list'
     }).length
     if (length) {
       wx.navigateBack({
-        url: '../my-list-pipe/my-list-pipe'
+        url: '../my-list/my-list'
       })
     } else {
       wx.redirectTo({
-        url: '../my-list-pipe/my-list-pipe'
+        url: '../my-list/my-list'
       })
     }
   }
