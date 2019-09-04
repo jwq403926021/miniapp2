@@ -51,9 +51,10 @@ Page({
       [event.currentTarget.id]: event.detail
     })
   },
-  gotoLink () {
+  gotoLink (event) {
+    console.log(event.currentTarget.dataset.url, "##")
     wx.navigateTo({
-      url: '../webview/webview'
+      url: '../webview/webview?url=' + event.currentTarget.dataset.url
     })
   },
   gotoStep1 () {

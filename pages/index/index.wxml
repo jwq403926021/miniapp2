@@ -125,7 +125,7 @@
             </view>
           </view>
         </view>
-        <view class="weui-panel__ft" bindtap="gotoLink">
+        <view class="weui-panel__ft" bindtap="gotoLink" data-url="{{item.url}}">
           <view class="weui-cell weui-cell_access weui-cell_link">
             <view class="weui-cell__bd">产品链接</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
