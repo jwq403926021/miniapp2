@@ -51,6 +51,11 @@ Page({
       [event.currentTarget.id]: event.detail
     })
   },
+  gotoLink () {
+    wx.navigateTo({
+      url: '../webview/webview'
+    })
+  },
   gotoStep1 () {
     let that = this
     let type = 1
