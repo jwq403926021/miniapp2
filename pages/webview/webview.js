@@ -5,6 +5,7 @@ Page({
     url: ''
   },
   onLoad: function (routeParams ) {
+    console.log(routeParams.url, "##")
     this.setData({
       url: routeParams.url
     })

@@ -111,17 +111,19 @@
 
   <block wx:if="{{step == 1}}">
     <view class="product-wrapper" wx:for="{{dataList}}" wx:for-item="company" wx:key="*this">
-      <view style="text-align: center; font-size: 18px; line-height: 24px; font-weight: bold;">{{company.companyName}}</view>
+      <view style="text-align: center; font-size: 18px; line-height: 24px; font-weight: bold;"><text style="color:#0bb20c" class="iconfont icongongsiqiye"></text> {{company.companyName}}</view>
       <view class="weui-panel weui-panel_access mt0" wx:for="{{company.product}}" wx:key="{{item.id}}">
         <view class="weui-panel__bd" data-productid="{{item.id}}" data-companyid="{{item.companyId}}" bindtap="goToCommitOrder">
           <view class="weui-media-box weui-media-box_text">
             <view class="weui-media-box__title weui-media-box__title_in-text">
-              <text style="float: right" class="{{item.flag ? 'highlight' : ''}}">{{item.flag ? '[推荐]' : ''}}</text>
-              {{item.productName}}
+              <text style="float: right" class="{{item.flag ? 'highlight' : ''}}">
+                <text wx:if="{{item.flag}}" class="iconfont iconhuobao"></text>{{item.flag ? '[推荐]' : ''}}
+              </text>
+              <text style="color:#d8d805" class="iconfont iconchanpin"></text> {{item.productName}}
             </view>
             <view class="weui-media-box__desc">
-              <view>介绍：{{item.detail || '-'}}</view>
-              <view>价格：{{item.price}}</view>
+              <view><text style="font-weight: bold;">价格：</text>{{item.price}}</view>
+              <view><text style="font-weight: bold;">介绍：</text>{{item.detail || '-'}}</view>
             </view>
           </view>
         </view>
@@ -132,6 +134,7 @@
           </view>
         </view>
       </view>
+      <view class="borderB"></view>
     </view>
 
     <view class="button-sp-area">
