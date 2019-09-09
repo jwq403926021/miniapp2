@@ -101,6 +101,13 @@ Page({
             result[item.companyId].product = [item]
           }
         })
+        for (let key in result) {
+          result[key].product.sort((a, b) => {
+            if (b.flag) {
+              return 1
+            }
+          })
+        }
         that.setData({
           dataList: result,
           step: '1'
