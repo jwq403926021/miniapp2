@@ -3,7 +3,7 @@
         <view style="text-align: center">
             <image class="userinfo-avatar" src="../../asset/image/logo.png" mode="cover"></image>
         </view>
-        <view style="text-align: center">欢迎使用汇报价小程序。</view>
+        <view style="text-align: center">欢迎使用汇物保小程序。</view>
         <view>申请成功后，您将可以根据个人情况，获得推荐的保单产品及信息。</view>
         <button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" type="primary">
             立即申请
