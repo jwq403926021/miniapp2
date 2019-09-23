@@ -30,7 +30,7 @@
         <view class="weui-media-box__desc">
           <view>身份证号：{{item.cardNumber}}</view>
           <view>手机：{{item.mobile}}</view>
-          <view>保险公司：{{item.companyName || item.companyId}}</view>
+          <view>公司：{{item.companyName || item.companyId}}</view>
           <view>投保产品：{{item.productName || item.productId}}</view>
           <!--<view>金额：{{item.price || '-'}}</view>-->
         </view>
