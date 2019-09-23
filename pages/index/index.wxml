@@ -149,11 +149,11 @@
 
         <view class="weui-cell weui-cell_input weui-cell_vcode">
           <view class="weui-cell__hd">
-            <view class="weui-label">被保险人</view>
+            <view class="weui-label">客户姓名</view>
           </view>
           <view class="weui-cell__bd">
             <input class="weui-input" bindinput="inputgetName" data-name='name'
-                   value="{{name}}" placeholder="请输入被保险人"/>
+                   value="{{name}}" placeholder="请输入客户姓名"/>
           </view>
         </view>
 
@@ -192,12 +192,12 @@
 
         <view class="weui-cell weui-cell_select">
           <view class="weui-cell__hd weui-cell__hd_in-select-after">
-            <view class="weui-label">投保产品</view>
+            <view class="weui-label">产品</view>
           </view>
           <view class="weui-cell__bd">
             <picker bindchange="productChange" value="{{productValue}}" range="{{productList}}">
               <view class="picker weui-select weui-select_in-select-after">
-                {{productList[productValue] || '选择投保产品'}}
+                {{productList[productValue] || '选择产品'}}
               </view>
             </picker>
           </view>

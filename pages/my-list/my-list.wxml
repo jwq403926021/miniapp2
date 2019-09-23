@@ -3,7 +3,7 @@
     <view style="float: left; width: 85%;">
       <van-search
               value="{{ insuredName }}"
-              placeholder="被保险人"
+              placeholder="客户姓名"
               custom-class="my-search"
               bind:change="searchInsuredNameChange">
       </van-search>
@@ -26,12 +26,12 @@
   <view class="weui-panel weui-panel_access mt0" wx:for="{{dataList}}" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap="goToHandleTask">
     <view class="weui-panel__bd">
       <view class="weui-media-box weui-media-box_text">
-        <view class="weui-media-box__title weui-media-box__title_in-text">被保险人：{{item.name}}</view>
+        <view class="weui-media-box__title weui-media-box__title_in-text">客户姓名：{{item.name}}</view>
         <view class="weui-media-box__desc">
           <view>身份证号：{{item.cardNumber}}</view>
           <view>手机：{{item.mobile}}</view>
           <view>公司：{{item.companyName || item.companyId}}</view>
-          <view>投保产品：{{item.productName || item.productId}}</view>
+          <view>产品：{{item.productName || item.productId}}</view>
           <!--<view>金额：{{item.price || '-'}}</view>-->
         </view>
       </view>
