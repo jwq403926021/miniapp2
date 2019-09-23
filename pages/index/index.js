@@ -51,9 +51,20 @@ Page({
       [event.currentTarget.id]: event.detail
     })
   },
-  gotoLink (event) {
-    wx.navigateTo({
-      url: '../webview/webview?url=' + event.currentTarget.dataset.url
+  gotoLink (e) {
+    // wx.navigateTo({
+    //   url: '../webview/webview?url=' + event.currentTarget.dataset.url
+    // })
+    let url = e.currentTarget.dataset.url;
+    wx.setClipboardData({
+      data: url,
+      success(res) {
+        wx.getClipboardData({
+          success(res) {
+            console.log(res.data)
+          }
+        })
+      }
     })
   },
   gotoStep1 () {
