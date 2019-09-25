@@ -20,7 +20,7 @@
         "iconPath": "asset/image/home.png",
         "selectedIconPath": "asset/image/home_active.png",
         "pagePath": "pages/index/index",
-        "text": "投保"
+        "text": "产品"
       },
       {
         "iconPath": "asset/image/list.png",
