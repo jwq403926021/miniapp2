@@ -240,7 +240,10 @@ Page({
           duration: 1000
         })
         that.setData({
-          step: '0'
+          step: '0',
+          name: '',
+          cardNumber: '',
+          mobile: ''
         })
         wx.hideLoading()
       }
