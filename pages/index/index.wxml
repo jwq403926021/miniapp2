@@ -35,9 +35,9 @@
             <van-radio-group value="{{ propertyCompany.projectTime }}" custom-class="weui-input vertical"
                              id="propertyCompany.projectTime"
                              bind:change="onChange">
-              <van-radio custom-class="fl mr5" name="3"> {{'<'}}5 </van-radio>
+              <van-radio custom-class="fl mr5" name="1"> {{'<'}}5 </van-radio>
               <van-radio custom-class="fl mr5" name="2"> 5-10</van-radio>
-              <van-radio custom-class="fl mr5" name="1"> >10 </van-radio>
+              <van-radio custom-class="fl mr5" name="3"> >10 </van-radio>
             </van-radio-group>
           </view>
         </view>
@@ -67,9 +67,9 @@
             <van-radio-group value="{{ individual.houseTime }}" custom-class="weui-input vertical"
                              id="individual.houseTime"
                              bind:change="onChange">
-              <van-radio custom-class="fl mr5" name="1"> >10 </van-radio>
+              <van-radio custom-class="fl mr5" name="1"> {{'<'}}5 </van-radio>
               <van-radio custom-class="fl mr5" name="2"> 5-10</van-radio>
-              <van-radio custom-class="fl mr5" name="3"> {{'<'}}5 </van-radio>
+              <van-radio custom-class="fl mr5" name="3"> >10 </van-radio>
             </van-radio-group>
           </view>
         </view>
