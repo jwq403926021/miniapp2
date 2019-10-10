@@ -1,5 +1,5 @@
 <view class="page">
-    <view wx:if="{{showAskUserInfoBtn}}" class="authAskBtnWrap">
+    <view wx:if="{{showAskUserInfoBtn && !hasBindPhone}}" class="authAskBtnWrap">
         <view style="text-align: center">
             <image class="userinfo-avatar" src="../../asset/image/logo.png" mode="cover"></image>
         </view>
@@ -9,7 +9,7 @@
             立即申请
         </button>
     </view>
-    <view class="userinfo" wx:if="{{hasUserInfoAuth && !showAskUserInfoBtn}}">
+    <view class="userinfo" wx:if="{{(hasUserInfoAuth && !showAskUserInfoBtn) || hasBindPhone}}">
         <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
         <text class="userinfo-nickname">{{userInfo.nickName}}</text>
         <view wx:if="{{hasUserInfoAuth && !hasBindPhone}}" style="padding:10px">申请成功后，您将可以根据个人情况，获得推荐的产品及信息。</view>
