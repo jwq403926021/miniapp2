@@ -8,7 +8,7 @@ Page({
     region: '',
     regionLabel: '',
 
-    showAskUserInfoBtn: false,
+    showAskUserInfoBtn: true,
     hasUserInfoAuth: false,
     hasBindPhone: false,
     userInfo: null,
@@ -91,10 +91,6 @@ Page({
               }
             }
           })
-        } else {
-          this.setData({
-            showAskUserInfoBtn: true
-          })
         }
       }
     })
@@ -129,6 +125,7 @@ Page({
     }
     app.globalData.userInfo = data.detail.userInfo
     this.setData({
+      showAskUserInfoBtn: false,
       userInfo: app.globalData.userInfo,
       hasUserInfoAuth: true,
       'registeInfo.avatarUrl': app.globalData.userInfo.avatarUrl,
